@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <!-- SimpleLightbox plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar  fixed-top" style="background-color: #fd996f">
+    <div class="container-fluid">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand text-start text-white" style="margin-right: 70%;" th:href="@{'/home'}">Cryptography</a>
+        <form class="d-flex" role="search" th:action="@{/test/problem}">
+            <input class="form-control me-4" type="search" name="searchProblem" placeholder="Search problems by title" aria-label="Search" style="width: 300px;">
+
+        </form>
+
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Cryptography</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li  sec:authorize="isAuthenticated()">
+                        <i class="fa fa-user"></i>
+                        <a class="nav-link" href="/profile">
+                            <th:block th:if="${#request.getRemoteUser() != null}"
+                                      th:text="${#request.getRemoteUser()}"></th:block>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{'/home'}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/courses">Courses/Lessons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/test/problems'}">Problems</a>
+                    </li>
+                    <th:block sec:authorize="hasRole('ROLE_USER')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{'/my-solutions'}">My solution</a>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_USER')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{'/question'}">Ask us a question</a>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_USER')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{'/my-questions'}">My questions</a>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{'/question/all-question'}">All questions</a>
+                        </li>
+                    </th:block>
+                    <li  sec:authorize="isAuthenticated()">
+                        <a class="btn btn-danger btn-sm ml-3" href="/logout">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </a>
+                    </li>
+                    <li  sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-primary btn-sm ml-3" href="/login">
+                            <i class="fa fa-sign-in"></i> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Masthead-->
+<br/><br/>
+<br/>
+<br><br>
+
+
+<div class="container mb-4" xmlns:th="http://www.thymeleaf.org">
+    <div class="container mb-4" xmlns:th="http://www.thymeleaf.org">
+        <div class="row">
+            <div class="col-md-5">
+                <form method="POST" th:action="@{'/test/problems/{id}' (id=${problem?.getId()})}">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text"
+                               class="form-control"
+                               id="title"
+                               name="title"
+                               th:value="${problem?.getTitle()}"
+                               required
+                               placeholder="Enter title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="problem">Problem</label>
+                        <input type="text"
+                               class="form-control"
+                               id="problem"
+                               name="problem"
+                               th:value="${problem?.getProblem()}"
+                               required
+                                  placeholder="Enter problem"> </input>
+                    </div>
+                <br> <br>
+
+                    <button id="submit-from-add-balloon" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/test/problems">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- SimpleLightbox plugin JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
+<script src='https://npmcdn.com/js-offcanvas@1.0/dist/_js/js-offcanvas.pkgd.min.js'></script>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+</body>
+</html>

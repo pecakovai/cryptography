@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <style>
+    .register{
+      background-image: url("/images/background-login.png");
+      background-repeat: no-repeat;
+      top: 120px;
+    }
+    .card{
+      height: 600px;
+      width: 134%;
+      background-color: #011e4e;
+      margin-left: -200px;
+    }
+  </style>
+</head>
+<body style="background-color: #011e4e">
+<div class="container">
+
+
+
+  <br/>
+
+
+  <div class="card register" style="background-color: #011e4e">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+      <h4 class="card-title mt-3 text-center text-white">Log in</h4>
+      <a th:href="@{/register}">
+        <p class="text-center text-white">Don't have account? Create account</p>
+      </a>
+      <form method="post" action="/login">
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input name="username" class="form-control form-control-lg" placeholder="username" type="text">
+        </div><br>
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          </div>
+          <input name="password" class="form-control form-control-lg" placeholder="Password" type="password">
+        </div><br>
+         <!-- form-group end.// -->
+        <br>
+        <div class="form-group">
+          <button type="submit" class="btn btn-dark btn-block btn-lg" style="background-color: #010001">Log in</button>
+        </div> <!-- form-group// -->
+
+      </form>
+    </article>
+  </div> <!-- card.// -->
+
+</div>
+<!--container end.//-->
+
+<br><br>
+
+
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
